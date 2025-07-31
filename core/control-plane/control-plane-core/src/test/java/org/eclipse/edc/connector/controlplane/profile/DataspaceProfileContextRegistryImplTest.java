@@ -30,7 +30,7 @@ class DataspaceProfileContextRegistryImplTest {
     class GetAllVersions {
         @Test
         void shouldReturnVersions_whenContextsRegisteredDefault() {
-            var version = new ProtocolVersion("version name", "/path");
+            var version = new ProtocolVersion("version name", "/path", "binding");
             registry.registerDefault(new DataspaceProfileContext("profile", version, () -> "url"));
 
             var result = registry.getProtocolVersions().protocolVersions();
@@ -40,8 +40,8 @@ class DataspaceProfileContextRegistryImplTest {
 
         @Test
         void shouldIgnoreDefaultContexts_whenStandardAreRegistered() {
-            var defaultVersion = new ProtocolVersion("default", "/path");
-            var standardVersion = new ProtocolVersion("default", "/path");
+            var defaultVersion = new ProtocolVersion("default", "/path", "binding");
+            var standardVersion = new ProtocolVersion("default", "/path", "binding");
             registry.registerDefault(new DataspaceProfileContext("default", defaultVersion, () -> "url"));
             registry.register(new DataspaceProfileContext("standard", standardVersion, () -> "url"));
 
@@ -63,7 +63,7 @@ class DataspaceProfileContextRegistryImplTest {
 
         @Test
         void shouldReturnWebhookForName() {
-            var version = new ProtocolVersion("version name", "/path");
+            var version = new ProtocolVersion("version name", "/path", "binding");
             registry.registerDefault(new DataspaceProfileContext("profile", version, () -> "url"));
 
             var result = registry.getWebhook("profile");
@@ -84,7 +84,7 @@ class DataspaceProfileContextRegistryImplTest {
 
         @Test
         void shouldReturnVersionForName() {
-            var version = new ProtocolVersion("version name", "/path");
+            var version = new ProtocolVersion("version name", "/path", "binding");
             registry.registerDefault(new DataspaceProfileContext("profile", version, () -> "url"));
 
             var result = registry.getProtocolVersion("profile");
